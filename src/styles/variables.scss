@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+$body-font-family: 'Josefin Sans',
+sans-serif;
+$title-font: 'Josefin Sans',
+sans-serif;
+
+$font-size-root: 13px;
+
+.v-text-field.v-text-field--solo .v-input__control,
+.v-list-item {
+    min-height: 26px;
+}
+
+.v-list-item__title,
+.v-label {
+    font-size: 13px;
+}
+
+.v-toolbar__content .v-btn.v-btn--icon.v-size--default,
+.v-toolbar__extension .v-btn.v-btn--icon.v-size--default {
+    height: 38px;
+    width: 38px;
+}
+
+.v-application .primary--text {
+    color: #ffffff !important;
+    caret-color: #dfddc5 !important;
+}
