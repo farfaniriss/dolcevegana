@@ -2,8 +2,10 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class Tienda extends Vue {
-  loading = false;
+  isLoading = true;
+  isAddingToCart = false;
   hearted = false;
+  isActive = false;
   selection = 1;
   items = ["Gluten free", "Orgánico", "Non GMO", "Libre de soja"];
   model = ["Carrots"];
@@ -53,7 +55,12 @@ export default class Tienda extends Vue {
   ];
 
   reserve() {
-    this.loading = true;
-    setTimeout(() => (this.loading = false), 2000);
+    this.isAddingToCart = true;
+    setTimeout(() => (this.isAddingToCart = false), 2000);
+  }
+
+  created() {
+    this.isLoading = true;
+    setTimeout(() => (this.isLoading = false), 2000);
   }
 }
