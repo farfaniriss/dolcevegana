@@ -60,7 +60,7 @@ export default class Tienda extends Vue {
   }
 
   created() {
-    this.isLoading = true;
+    this.isLoading = false;
     setTimeout(() => (this.isLoading = false), 2000);
   }
 }

@@ -2,9 +2,12 @@
   <v-app>
     <v-app-bar
       class="info"
+      color="transparent"
       :clipped-left="clipped"
-      fixed
+      inverted-scroll
+      elevate-on-scroll
       prominent
+      scroll-threshold="500"
       app
       :height="'50px'"
     >
@@ -29,18 +32,14 @@
       >
         <template v-slot:no-data>
           <v-list-item>
-            <v-list-item-title>
-              ¿Qué estás buscando hoy?
-            </v-list-item-title>
+            <v-list-item-title>¿Qué estás buscando hoy?</v-list-item-title>
           </v-list-item>
         </template>
         <template v-slot:item="{ item }">
           <v-list-item-avatar
             color="indigo"
             class="headline font-weight-light white--text"
-          >
-            {{ item.name.charAt(0) }}
-          </v-list-item-avatar>
+          >{{ item.name.charAt(0) }}</v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title v-text="item.name"></v-list-item-title>
             <v-list-item-subtitle v-text="item.symbol"></v-list-item-subtitle>
@@ -59,14 +58,12 @@
       </v-btn>
 
       <template v-slot:extension>
-        <v-tabs
-          centered
-          background-color="transparent"
-          class="d-none d-sm-flex justify-center"
-        >
-          <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">{{
+        <v-tabs centered background-color="transparent" class="d-none d-sm-flex justify-center">
+          <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">
+            {{
             menu.title
-          }}</v-tab>
+            }}
+          </v-tab>
         </v-tabs>
         <v-autocomplete
           v-model="searchKey"
@@ -84,18 +81,14 @@
         >
           <template v-slot:no-data>
             <v-list-item>
-              <v-list-item-title>
-                ¿Qué estás buscando hoy?
-              </v-list-item-title>
+              <v-list-item-title>¿Qué estás buscando hoy?</v-list-item-title>
             </v-list-item>
           </template>
           <template v-slot:item="{ item }">
             <v-list-item-avatar
               color="indigo"
               class="headline font-weight-light white--text"
-            >
-              {{ item.name.charAt(0) }}
-            </v-list-item-avatar>
+            >{{ item.name.charAt(0) }}</v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title v-text="item.name"></v-list-item-title>
               <v-list-item-subtitle v-text="item.symbol"></v-list-item-subtitle>
