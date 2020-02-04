@@ -30,7 +30,7 @@
   font-size: 4em;
   margin-left: -2rem;
   margin-top: 10rem;
-  z-index: 1000;
+  z-index: 2;
   position: relative;
 }
 
