@@ -17,22 +17,27 @@
       <!-- <v-toolbar-title v-text="title" /> -->
       <v-btn outlined icon small class="ma-1">{{ title }}</v-btn>
 
-      <v-tabs centered background-color="transparent" class="d-none d-sm-flex justify-center">
+      <v-tabs
+        centered
+        background-color="transparent"
+        class="d-none d-sm-flex justify-center"
+      >
         <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">
-          {{
-          menu.title
-          }}
+          {{ menu.title }}
         </v-tab>
       </v-tabs>
 
-      <v-btn outlined icon small class="ma-1">
-        <font-awesome-icon :icon="['fas', 'user']" />
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
-      <v-btn outlined icon small class="ma-1">
-        <font-awesome-icon :icon="['fas', 'heart']" />
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn outlined icon small class="ma-1">
-        <font-awesome-icon :icon="['fas', 'shopping-cart']" />
+      <v-btn icon>
+        <v-icon>shopping_cart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>person</v-icon>
       </v-btn>
     </v-app-bar>
     <v-content>

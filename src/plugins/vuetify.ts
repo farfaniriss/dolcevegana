@@ -4,6 +4,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-free/css/all.css";
+import "material-design-icons-iconfont/dist/material-design-icons.css"; // Ensure you are using css-loader
 
 Vue.component("font-awesome-icon", FontAwesomeIcon); // Register component globally
 library.add(fas); // Include needed icons
@@ -12,7 +13,7 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
-    iconfont: "fa"
+    iconfont: "md"
   },
   theme: {
     themes: {

@@ -1,32 +1,33 @@
 <template>
-  <v-container class="pa-0 ma-0">
-    <v-row no-gutters>
-      <v-col :cols="10">
-        <v-img
-          src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/1ee0b673308513.5c0583ba816d9.png"
-          class="grey lighten-2"
-          aspect-ratio="1"
-          height="100vh"
-        ></v-img>
-      </v-col>
-      <v-col :cols="2">
-        <p class="main-title">Not your mother, not your milk</p>
-        <p
-          class="main-content"
-        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in mauris sed sem tincidunt suscipit vel ac nisi. Morbi turpis velit, tincidunt non finibus id, vestibulum in orci. Sed varius nec orci cursus facilisis. Sed aliquet porttitor vehicula. Praesent non nisi ut sem ultricies congue. Donec blandit libero vitae dui tempus hendrerit. Praesent euismod cursus libero vitae laoreet. Integer mattis nulla vitae tincidunt congue. Morbi tortor nibh, rutrum non velit id, gravida accumsan enim.</p>
-      </v-col>
-    </v-row>
-    <v-row v-for="n in 50" :key="n" no-gutters>
-      <p>Hey!</p>
-    </v-row>
-  </v-container>
+  <v-layout row wrap>
+    <v-flex xs12 sm12>
+      <v-parallax
+        dark
+        src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/c094ca54837729.5a74c2079a4fd.jpg"
+      >
+        <v-row align="center" justify="center">
+          <v-col class="text-center" cols="12">
+            <h1 class="display-1 font-weight-thin mb-4">Eat with conscius</h1>
+            <h4 class="subheading">Lorem impsum</h4>
+          </v-col>
+        </v-row>
+      </v-parallax>
+    </v-flex>
+    <v-container>
+      <v-row no-gutters>
+        <p class="main-title text-center">
+          Nuestros productos más queridos
+        </p>
+      </v-row>
+    </v-container>
+  </v-layout>
 </template>
 <script lang="ts" src="./Home.ts"></script>
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Merriweather:300i&display=swap");
 
 .main-title {
-  font-family: "Bebas Neue", cursive;
+  font-family: "Merriweather", serif;
   font-size: 4em;
   margin-left: -2rem;
   margin-top: 10rem;
