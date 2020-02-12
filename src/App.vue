@@ -15,16 +15,10 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn>-->
       <!-- <v-toolbar-title v-text="title" /> -->
-      <v-btn outlined icon small class="ma-1">{{ title }}</v-btn>
+      <v-btn dark text medium class="ma-1 logo">{{ title }}</v-btn>
 
-      <v-tabs
-        centered
-        background-color="transparent"
-        class="d-none d-sm-flex justify-center"
-      >
-        <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">
-          {{ menu.title }}
-        </v-tab>
+      <v-tabs centered background-color="transparent" class="d-none d-sm-flex justify-center">
+        <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">{{ menu.title }}</v-tab>
       </v-tabs>
 
       <v-btn icon>
@@ -58,7 +52,7 @@
         </v-btn>
       </v-fab-transition>
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" left temporary fixed>
+    <v-navigation-drawer v-model="navigationDrawer" right temporary fixed>
       <v-list>
         <v-list-item v-for="(menu, index) in menus" :key="index" :to="menu.to">
           <v-list-item-action>
@@ -68,8 +62,25 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer absolute app>
-      <span>&copy; 2019</span>
+    <v-footer dark padless absolute app>
+      <v-card flat tile class="lighten-1 white--text text-center footer-color">
+        <v-card-text>
+          <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
+            <v-icon size="24px">{{ icon }}</v-icon>
+          </v-btn>
+        </v-card-text>
+
+        <v-card-text
+          class="white--text pt-0"
+        >Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-text class="white--text">
+          {{ new Date().getFullYear() }} —
+          <strong>{{title}}</strong>
+        </v-card-text>
+      </v-card>
     </v-footer>
   </v-app>
 </template>
@@ -111,10 +122,17 @@ export default Vue.extend({
         to: "/blog"
       }
     ],
+    icons: [
+      "fab fa-facebook",
+      "fab fa-twitter",
+      "fab fa-google-plus",
+      "fab fa-linkedin",
+      "fab fa-instagram"
+    ],
     miniVariant: false,
     right: true,
-    rightDrawer: false,
-    title: "DV" //"Dolce Vegana"
+    navigationDrawer: false,
+    title: "Dolce Vegana"
   }),
   methods: {
     onScroll(e: any) {
@@ -130,39 +148,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
-$body-font-family: "Josefin Sans", sans-serif;
-$title-font: "Josefin Sans", sans-serif;
-
-.v-application {
-  font-family: $body-font-family, sans-serif !important;
-  .title {
-    // To pin point specific classes of some components
-    font-family: $title-font, sans-serif !important;
-  }
-}
-
-.v-text-field.v-text-field--solo .v-input__control,
-.v-list-item {
-  min-height: 26px;
-}
-
-.v-list-item__title,
-.v-label {
-  font-size: 13px;
-}
-
-.v-toolbar__content .v-btn.v-btn--icon.v-size--default,
-.v-toolbar__extension .v-btn.v-btn--icon.v-size--default {
-  height: 38px;
-  width: 38px;
-}
-
-.v-application .primary--text {
-  color: #ffffff !important;
-  caret-color: #dfddc5 !important;
-}
-
 .v-toolbar--prominent:not(.v-toolbar--bottom) .v-toolbar__title {
   color: #ffffff;
   padding-bottom: 0px !important;
@@ -176,5 +161,9 @@ $title-font: "Josefin Sans", sans-serif;
 .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) > .v-icon,
 .theme--light.v-tabs > .v-tabs-bar .v-tab--disabled {
   color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.container {
+  max-width: 100% !important;
 }
 </style>

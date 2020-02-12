@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Merriweather:300i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=PT+Serif&display=swap");
 
-$body-font-family: 'Josefin Sans',
-sans-serif;
-$title-font: 'Josefin Sans',
+$body-font-family: 'Open Sans',
 sans-serif;
 
 $font-size-root: 13px;
+
+$font-color-green: #70ac7a;
+$font-color-gray: #B0B0B0;
 
 .v-text-field.v-text-field--solo .v-input__control,
 .v-list-item {
@@ -14,7 +17,7 @@ $font-size-root: 13px;
 
 .v-list-item__title,
 .v-label {
-    font-size: 13px;
+    font-size: 1rem;
 }
 
 .v-toolbar__content .v-btn.v-btn--icon.v-size--default,
