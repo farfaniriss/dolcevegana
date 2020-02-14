@@ -1,37 +1,34 @@
 <template>
   <v-app>
-    <v-app-bar
-      class="info"
-      color="transparent"
-      :clipped-left="clipped"
-      fixed
-      prominent
-      flat
-      scroll-threshold="500"
-      app
-      :height="'50px'"
-    >
-      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>-->
+    <v-app-bar class="info" fixed flat app height="50px">
       <!-- <v-toolbar-title v-text="title" /> -->
       <v-btn dark text medium class="ma-1 logo">{{ title }}</v-btn>
 
       <v-tabs centered background-color="transparent" class="d-none d-sm-flex justify-center">
         <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">{{ menu.title }}</v-tab>
       </v-tabs>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>shopping_cart</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>person</v-icon>
+      <div class="d-none d-sm-flex">
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>shopping_cart</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>person</v-icon>
+        </v-btn>
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn
+        class="d-flex d-sm-none mr-1"
+        dark
+        icon
+        @click.stop="navigationDrawer = !navigationDrawer"
+      >
+        <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
     <v-content>
@@ -96,7 +93,6 @@ export default Vue.extend({
     searchItems: [],
     isLoadingSearch: false,
     search: "",
-    clipped: false,
     drawer: false,
     fixed: false,
     fab: false,

@@ -11,6 +11,7 @@
             <h4
               class="subheading"
             >There is no fundamental difference between man and animals in their ability to feel pleasure and pain, happiness, and misery</h4>
+            <v-btn outlined class="mt-5">Comprar ahora</v-btn>
           </v-col>
         </v-row>
       </v-parallax>
