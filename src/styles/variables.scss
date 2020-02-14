@@ -1,32 +1,33 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Merriweather:300i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=PT+Serif&display=swap");
 
-$body-font-family: 'Open Sans',
-sans-serif;
+$body-font-family: "Open Sans", sans-serif;
 
 $font-size-root: 13px;
 
 $font-color-green: #70ac7a;
-$font-color-gray: #B0B0B0;
+$font-color-gray: #b0b0b0;
+
+$app-green: #aad46f;
 
 .v-text-field.v-text-field--solo .v-input__control,
 .v-list-item {
-    min-height: 26px;
+  min-height: 26px;
 }
 
 .v-list-item__title,
 .v-label {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .v-toolbar__content .v-btn.v-btn--icon.v-size--default,
 .v-toolbar__extension .v-btn.v-btn--icon.v-size--default {
-    height: 38px;
-    width: 38px;
+  height: 38px;
+  width: 38px;
 }
 
 .v-application .primary--text {
-    color: #ffffff !important;
-    caret-color: #dfddc5 !important;
+  color: #ffffff !important;
+  caret-color: #dfddc5 !important;
 }

@@ -51,15 +51,25 @@
     </v-content>
     <v-navigation-drawer v-model="navigationDrawer" right temporary fixed>
       <v-list>
-        <v-list-item v-for="(menu, index) in menus" :key="index" :to="menu.to">
-          <v-list-item-action>
-            <font-awesome-icon :icon="['fas', menu.icon]" />
-          </v-list-item-action>
+        <v-list-item v-for="(menu, index) in userMenus" :key="index" :to="menu.to">
+          <v-list-item-icon>
+            <v-icon>{{ menu.icon }}</v-icon>
+          </v-list-item-icon>
           <v-list-item-title>{{ menu.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <v-list>
+          <v-list-item :to="'logout'">
+            <v-list-item-icon>
+              <v-icon>arrow_back</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Cerrar sesion</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </template>
     </v-navigation-drawer>
-    <v-footer dark padless absolute app>
+    <v-footer dark padless absolute app class="d-none d-sm-flex justify-center">
       <v-card flat tile class="lighten-1 white--text text-center footer-color">
         <v-card-text>
           <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
@@ -79,6 +89,12 @@
         </v-card-text>
       </v-card>
     </v-footer>
+    <v-bottom-navigation light fixed class="d-flex d-sm-none mr-1" active-class="active-menu">
+      <v-btn v-for="(menu, index) in menus" :key="index" :to="menu.to">
+        <span>{{ menu.title }}</span>
+        <v-icon>{{ menu.icon }}</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>
 
@@ -98,33 +114,49 @@ export default Vue.extend({
     fab: false,
     menus: [
       {
-        icon: "th",
+        icon: "mdi-home",
         title: "Inicio",
         to: "/"
       },
       {
-        icon: "store-alt",
+        icon: "store",
         title: "Tienda",
         to: "/tienda"
       },
       {
-        icon: "utensils",
+        icon: "restaurant",
         title: "Recetas",
         to: "/recetas"
       },
       {
-        icon: "book-open",
+        icon: "menu_book",
         title: "Blog",
         to: "/blog"
       }
     ],
-    icons: [
-      "fab fa-facebook",
-      "fab fa-twitter",
-      "fab fa-google-plus",
-      "fab fa-linkedin",
-      "fab fa-instagram"
+    userMenus: [
+      {
+        icon: "person",
+        title: "Perfil",
+        to: "/perfil"
+      },
+      {
+        icon: "local_shipping",
+        title: "Mis ordenes",
+        to: "/ordernes"
+      },
+      {
+        icon: "favorite",
+        title: "Favoritos",
+        to: "/favoritos"
+      },
+      {
+        icon: "shopping_cart",
+        title: "Carrito",
+        to: "/carrito"
+      }
     ],
+    icons: ["fab fa-facebook", "fab fa-google-plus", "fab fa-instagram"],
     miniVariant: false,
     right: true,
     navigationDrawer: false,
@@ -161,5 +193,9 @@ export default Vue.extend({
 
 .container {
   max-width: 100% !important;
+}
+
+.active-menu {
+  color: #9ebf6e !important;
 }
 </style>
