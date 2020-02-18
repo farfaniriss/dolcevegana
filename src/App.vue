@@ -35,6 +35,7 @@
       <router-view></router-view>
       <v-fab-transition>
         <v-btn
+          class="d-none d-sm-flex"
           v-show="fab"
           v-scroll="onScroll"
           fab
