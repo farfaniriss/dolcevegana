@@ -16,16 +16,19 @@ export default class Blog extends Vue {
     axios
       .get(`https://picsum.photos/v2/list?page=${this.page}&limit=10`)
       .then(response => {
-        console.log(response.data);
         if (response.data.length > 0) {
           this.page += 1;
-          this.posts.push(response.data);
-          this.loading = false;
+          response.data.forEach((element: any) => {
+            element.url =
+              "https://image.freepik.com/foto-gratis/bocadillos-anacardos-tazon-ceramica-cucharas-madera_34056-458.jpg";
+          });
+          this.posts = response.data;
+          console.log(this.posts);
+          setTimeout(() => {
+            this.loading = false;
+          }, 1000);
         }
       });
-    // setTimeout(() => {
-    //   this.loading = false;
-    // }, 1000);
   }
 
   infiniteHandler($state: any) {
@@ -34,7 +37,11 @@ export default class Blog extends Vue {
       .then(response => {
         if (response.data.length > 0) {
           this.page += 1;
-          this.posts.push(response.data);
+          response.data.forEach((element: any) => {
+            element.url =
+              "https://image.freepik.com/foto-gratis/quinua-cruda-cerca-tazon-madera_136346-2133.jpg";
+            this.posts.push(element);
+          });
           $state.loaded();
         } else {
           $state.complete();
