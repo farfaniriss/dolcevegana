@@ -8,7 +8,6 @@ import axios from "axios";
   }
 })
 export default class Blog extends Vue {
-  loading = true;
   posts: any[] = [];
   page = 1;
 
@@ -23,10 +22,6 @@ export default class Blog extends Vue {
               "https://image.freepik.com/foto-gratis/bocadillos-anacardos-tazon-ceramica-cucharas-madera_34056-458.jpg";
           });
           this.posts = response.data;
-          console.log(this.posts);
-          setTimeout(() => {
-            this.loading = false;
-          }, 1000);
         }
       });
   }
