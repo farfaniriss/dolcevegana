@@ -32,7 +32,9 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <router-view></router-view>
+      <transition name="routerAnimation" enter-active-class="animated faster fadeIn">
+        <router-view></router-view>
+      </transition>
       <v-fab-transition>
         <v-btn
           class="d-none d-sm-flex"
