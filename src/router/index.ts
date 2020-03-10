@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home/Home.vue";
 import Tienda from "../views/Tienda/Tienda.vue";
 import Recetas from "../views/Recetas/Recetas.vue";
+import Search from "../views/Search/Search.vue";
 import Blog from "../views/Blog/Blog.vue";
 
 Vue.use(VueRouter);
@@ -27,6 +28,11 @@ const routes = [
     path: "/blog",
     name: "blog",
     component: Blog
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: Search
   },
   {
     path: "/about",

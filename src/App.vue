@@ -8,7 +8,7 @@
         <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">{{ menu.title }}</v-tab>
       </v-tabs>
       <div class="d-none d-sm-flex">
-        <v-btn icon>
+        <v-btn icon to="search">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
         <v-btn icon>
