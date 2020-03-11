@@ -5,6 +5,7 @@
         <v-autocomplete
           v-model="model"
           :items="items"
+          autofocus
           :loading="isLoading"
           :search-input.sync="search"
           color="light-green lighten-1"
@@ -12,9 +13,12 @@
           hide-selected
           item-text="Description"
           item-value="API"
-          placeholder="Search"
           return-object
+          single-line
         >
+          <template v-slot:label>
+            <div>Search</div>
+          </template>
           <template v-slot:append>
             <v-icon color="grey darken-1">mdi-magnify</v-icon>
           </template>

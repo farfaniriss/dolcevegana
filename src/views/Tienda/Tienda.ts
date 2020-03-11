@@ -23,7 +23,7 @@ export default class Tienda extends Vue {
       to: "/blog"
     },
     {
-      text: "Leches vegetales",
+      text: "Frutas deshidratadas",
       disabled: true,
       link: true,
       to: "/blog"
@@ -32,25 +32,35 @@ export default class Tienda extends Vue {
   categories = [
     {
       action: "restaurant",
-      title: "Leches vegetales",
+      title: "Frutas deshidratadas",
       active: true,
       items: [
-        { title: "Leche de almendras" },
-        { title: "Leche de soja" },
-        { title: "Leche de avena" },
-        { title: "Leche de arroz" },
-        { title: "Leche de cashews" }
+        { title: "Naranja deshidratada" },
+        { title: "Fresa deshidratada" },
+        { title: "Manzana deshidratada" },
+        { title: "Cocktail de frutas deshidratadas" }
       ]
     },
     {
-      action: "school",
-      title: "Quesos vegetales",
-      items: [{ title: "List Item" }]
+      action: "restaurant",
+      title: "Frutos secos",
+      items: [
+        { title: "Pasas negras" },
+        { title: "Pasas rubias" },
+        { title: "Avellanas" },
+        { title: "Almendras" }
+      ]
     },
     {
-      action: "school",
-      title: "Yogurts veganos",
-      items: [{ title: "List Item" }]
+      action: "restaurant",
+      title: "Semillas",
+      items: [
+        { title: "Semillas de sésamo" },
+        { title: "Semillas de calabaza" },
+        { title: "Semillas de girasol" },
+        { title: "Semillas de linaza" },
+        { title: "Semillas de chia" }
+      ]
     }
   ];
 

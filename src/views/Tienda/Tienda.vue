@@ -14,7 +14,7 @@
     </div>
     <v-row>
       <v-col :cols="12" :md="3">
-        <v-card class="mx-auto" max-width="500" flat tile>
+        <v-card class="mx-auto" max-width="500" flat tile outlined>
           <v-card max-width="500" class="mx-auto" flat tile>
             <v-card-title>
               <span class="title font-weight-light">Categorías</span>
@@ -52,11 +52,7 @@
           <v-list shaped>
             <v-list-item-group v-model="model" multiple>
               <template v-for="(item, i) in items">
-                <v-list-item
-                  :key="`item-${i}`"
-                  :value="item"
-                  active-class="secondary--text text--accent-4"
-                >
+                <v-list-item :key="`item-${i}`" :value="item" active-class="primary--text">
                   <template v-slot:default="{ active, toggle }">
                     <v-list-item-content>
                       <v-list-item-title v-text="item"></v-list-item-title>
@@ -78,8 +74,8 @@
         </v-card>
       </v-col>
       <v-col :cols="12" :md="9">
-        <v-container>
-          <v-row>
+        <v-container class="pa-0">
+          <v-row no-gutters>
             <v-col v-for="(n, index) in 50" :key="index" class="px-1">
               <v-lazy
                 v-model="isActive"
@@ -91,14 +87,17 @@
               >
                 <v-card
                   :loading="isAddingToCart"
-                  class="mx-auto my-12"
-                  max-width="274"
-                  hover
+                  class="mx-auto mb-12"
+                  max-width="300"
                   flat
                   tile
+                  outlined
                 >
                   <v-hover v-slot:default="{ hover }">
-                    <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png">
+                    <v-img
+                      height="250"
+                      src="https://images.unsplash.com/photo-1515470795860-432fb0098a39?ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80"
+                    >
                       <v-expand-transition>
                         <div
                           v-if="hover"
@@ -114,7 +113,7 @@
                   </v-hover>
 
                   <v-card-title class="mb-0 pb-0">
-                    Leche de almendras
+                    Naranja deshidratada
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn
@@ -149,7 +148,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="red lighten-1" class="white--text" @click="reserve">
+                    <v-btn color="red lighten-1" class="white--text" @click="reserve" outlined>
                       <v-icon>mdi-cart</v-icon>
                       <span style="font-size: 11px;">Añadir al carrito</span>
                     </v-btn>
@@ -167,7 +166,7 @@
 
 <script lang="ts" src="./Tienda.ts"></script>
 
-<style>
+<style lang="scss" scoped>
 .v-card--reveal {
   align-items: center;
   bottom: 0;
@@ -175,5 +174,13 @@
   opacity: 0.5;
   position: absolute;
   width: 100%;
+}
+
+.v-card--hover {
+  cursor: auto;
+}
+
+.v-application a {
+  color: #99c36b !important;
 }
 </style>

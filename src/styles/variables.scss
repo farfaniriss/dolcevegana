@@ -10,6 +10,8 @@ $font-size-root: 13px;
 $font-color-green: #70ac7a;
 $font-color-gray: #b0b0b0;
 
+$card-hover-elevation: 4 !default;
+
 //#9ebf6e
 //#9cb95f
 
@@ -32,6 +34,6 @@ $app-green: #aad46f;
 }
 
 .v-application .primary--text {
-  color: #ffffff !important;
-  caret-color: #dfddc5 !important;
+  color: #b1a512 !important;
+  caret-color: #99c36b !important;
 }

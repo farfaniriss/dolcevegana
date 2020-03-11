@@ -3,7 +3,7 @@
     <v-flex xs12 sm12>
       <v-parallax
         dark
-        src="https://happychristmasnewyeargreetings.com/wp-content/uploads/2017/12/Christmas-iphone-Wallpaper-JD5bLw4.jpg"
+        src="https://images.pexels.com/photos/2103949/pexels-photo-2103949.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
       >
         <v-row align="center" justify="center">
           <v-col class="text-center" cols="12">

@@ -3,7 +3,7 @@ import { Entry } from "@/interfaces/entry";
 
 @Component
 export default class Search extends Vue {
-  isLoading = true;
+  isLoading = false;
   model = null;
   search = null;
   categories = ["Products"];
@@ -12,6 +12,7 @@ export default class Search extends Vue {
   descriptionLimit = 60;
 
   @Watch("search") onChangeSearchKey(value: string, oldValue: string) {
+    console.log("search");
     if (this.items.length > 0) return;
 
     // Items have already been requested
