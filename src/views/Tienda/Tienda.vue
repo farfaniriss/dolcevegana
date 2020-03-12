@@ -13,16 +13,16 @@
       </v-breadcrumbs>
     </div>
     <v-row>
-      <v-col :cols="12" :md="3">
-        <v-card class="mx-auto" max-width="500" flat tile outlined>
-          <v-card max-width="500" class="mx-auto" flat tile>
+      <v-col :cols="12" :md="3" :lg="2">
+        <v-card class="mx-auto" flat tile outlined>
+          <v-card class="mx-auto" flat tile>
             <v-card-title>
               <span class="title font-weight-light">Categorías</span>
             </v-card-title>
             <v-divider></v-divider>
             <v-list>
               <v-list-group
-                v-for="item in categories"
+                v-for="(item, index) in categories"
                 :key="item.title"
                 v-model="item.active"
                 no-action
@@ -34,12 +34,13 @@
                 </template>
 
                 <v-list-item
-                  v-for="subItem in item.items"
+                  v-for="(subItem, subItemIndex) in item.items"
                   :key="subItem.title"
-                  @click="hearted = hearted"
+                  v-model="subItem.active"
+                  @click="filterProducts(subItemIndex, index)"
                 >
                   <v-list-item-content>
-                    <v-list-item-title v-text="subItem.title"></v-list-item-title>
+                    <v-list-item-title active-class="pink--text" v-text="subItem.title"></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-group>
@@ -73,10 +74,18 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col :cols="12" :md="9">
+      <v-col :cols="12" :md="9" :lg="10">
         <v-container class="pa-0">
           <v-row no-gutters>
-            <v-col v-for="(n, index) in 50" :key="index" class="px-1">
+            <v-col
+              v-for="(n, index) in 10"
+              :key="index"
+              class="px-1 px-lg-12"
+              lg="3"
+              md="4"
+              sm="12"
+              xs="12"
+            >
               <v-lazy
                 v-model="isActive"
                 :options="{
@@ -85,75 +94,83 @@
                 min-height="200"
                 transition="fade-transition"
               >
-                <v-card
-                  :loading="isAddingToCart"
-                  class="mx-auto mb-12"
-                  max-width="300"
-                  flat
-                  tile
-                  outlined
-                >
-                  <v-hover v-slot:default="{ hover }">
-                    <v-img
-                      height="250"
-                      src="https://images.unsplash.com/photo-1515470795860-432fb0098a39?ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80"
-                    >
-                      <v-expand-transition>
-                        <div
-                          v-if="hover"
-                          class="d-flex transition-fast-in-fast-out white v-card--reveal display-3"
-                          style="height: 100%;"
-                        >
-                          <v-btn class="ma-2" fab x-large color="black" icon>
-                            <font-awesome-icon :icon="['fas', 'eye']" />
-                          </v-btn>
-                        </div>
-                      </v-expand-transition>
-                    </v-img>
-                  </v-hover>
+                <v-card :loading="isAddingToCart" class="mx-auto mb-12" flat tile outlined>
+                  <v-container>
+                    <v-row justify="start">
+                      <v-col lg="12" md="12" sm="6" xs="6" class="pa-xs-0 pa-sm-0">
+                        <v-hover v-slot:default="{ hover }">
+                          <v-img
+                            height="250"
+                            aspect-ratio="1"
+                            src="https://images.unsplash.com/photo-1515470795860-432fb0098a39?ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80"
+                            srcset="https://i.imgur.com/J7rIsFH.jpg"
+                          >
+                            <v-expand-transition>
+                              <div
+                                v-if="hover"
+                                class="d-flex transition-fast-in-fast-out white v-card--reveal display-3"
+                                style="height: 100%;"
+                              >
+                                <v-btn class="ma-2" fab x-large color="black" icon>
+                                  <font-awesome-icon :icon="['fas', 'eye']" />
+                                </v-btn>
+                              </div>
+                            </v-expand-transition>
+                          </v-img>
+                        </v-hover>
+                      </v-col>
 
-                  <v-card-title class="mb-0 pb-0">
-                    Naranja deshidratada
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn
-                          text
-                          icon
-                          :color="
+                      <v-col lg="12" md="12" sm="6" xs="6" class="pa-xs-0 pa-sm-0">
+                        <v-card-title class="mb-0 pb-0">
+                          Naranja deshidratada
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                              <v-btn
+                                text
+                                icon
+                                :color="
                               hearted ? 'red lighten-1' : 'grey lighten-1'
                             "
-                          @click="hearted = !hearted"
-                        >
-                          <v-icon v-on="on">mdi-heart</v-icon>
-                        </v-btn>
-                      </template>
-                      <span v-show="!hearted">Agregar a favoritos</span>
-                      <span v-show="hearted">Remover de favoritos</span>
-                    </v-tooltip>
-                  </v-card-title>
+                                @click="hearted = !hearted"
+                              >
+                                <v-icon v-on="on">mdi-heart</v-icon>
+                              </v-btn>
+                            </template>
+                            <span v-show="!hearted">Agregar a favoritos</span>
+                            <span v-show="hearted">Remover de favoritos</span>
+                          </v-tooltip>
+                        </v-card-title>
 
-                  <v-card-text class="py-0 my-0">
-                    <v-row align="center" class="mx-0">
-                      <v-avatar color="secondary" class="mr-1" left size="24">
-                        <span class="white--text" style="font-size: 10px;">V</span>
-                      </v-avatar>
-                      <v-avatar color="deep-purple lighten-1" class="mx-1" left size="24">
-                        <span class="white--text" style="font-size: 10px;">GF</span>
-                      </v-avatar>
-                      <v-avatar color="deep-orange darken-1" class="mx-1" left size="24">
-                        <span class="white--text" style="font-size: 10px;">O</span>
-                      </v-avatar>
+                        <v-card-text class="py-0 my-0">
+                          <v-row align="center" class="mx-0">
+                            <v-avatar color="secondary" class="mr-1" left size="24">
+                              <span class="white--text" style="font-size: 10px;">V</span>
+                            </v-avatar>
+                            <v-avatar color="deep-purple lighten-1" class="mx-1" left size="24">
+                              <span class="white--text" style="font-size: 10px;">GF</span>
+                            </v-avatar>
+                            <v-avatar color="deep-orange darken-1" class="mx-1" left size="24">
+                              <span class="white--text" style="font-size: 10px;">O</span>
+                            </v-avatar>
+                          </v-row>
+                          <div class="my-4 subtitle-1 black--text">S/ 12.00</div>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            color="red lighten-1"
+                            class="white--text"
+                            @click="reserve"
+                            outlined
+                          >
+                            <v-icon>mdi-cart</v-icon>
+                            <span style="font-size: 11px;">Añadir al carrito</span>
+                          </v-btn>
+                          <v-spacer></v-spacer>
+                        </v-card-actions>
+                      </v-col>
                     </v-row>
-                    <div class="my-4 subtitle-1 black--text">S/ 12.00</div>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="red lighten-1" class="white--text" @click="reserve" outlined>
-                      <v-icon>mdi-cart</v-icon>
-                      <span style="font-size: 11px;">Añadir al carrito</span>
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
+                  </v-container>
                 </v-card>
               </v-lazy>
             </v-col>
@@ -180,7 +197,25 @@
   cursor: auto;
 }
 
+.v-card__title {
+  font-size: 1.05rem !important;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
 .v-application a {
   color: #99c36b !important;
+}
+
+.v-btn.v-size--default {
+  font-size: 0.5em !important;
+}
+
+.v-application--is-ltr
+  .v-list-group--no-action
+  > .v-list-group__items
+  > div
+  > .v-list-item {
+  padding-left: 4rem;
 }
 </style>

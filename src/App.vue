@@ -22,6 +22,9 @@
         </v-btn>
       </div>
       <v-spacer></v-spacer>
+      <v-btn class="d-flex d-sm-none mr-1" icon dark to="search">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
       <v-btn
         class="d-flex d-sm-none mr-1"
         dark
@@ -126,11 +129,11 @@ export default Vue.extend({
         title: "Tienda",
         to: "/tienda"
       },
-      {
-        icon: "restaurant",
-        title: "Recetas",
-        to: "/recetas"
-      },
+      // {
+      //   icon: "restaurant",
+      //   title: "Recetas",
+      //   to: "/recetas"
+      // },
       {
         icon: "menu_book",
         title: "Blog",
@@ -163,7 +166,7 @@ export default Vue.extend({
     miniVariant: false,
     right: true,
     navigationDrawer: false,
-    title: "Dolce Vegana"
+    title: "Vegan Superfoods"
   }),
   methods: {
     onScroll(e: any) {

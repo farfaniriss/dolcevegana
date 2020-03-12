@@ -32,34 +32,20 @@ export default class Tienda extends Vue {
   categories = [
     {
       action: "restaurant",
-      title: "Frutas deshidratadas",
+      title: "Supermercado",
       active: true,
       items: [
-        { title: "Naranja deshidratada" },
-        { title: "Fresa deshidratada" },
-        { title: "Manzana deshidratada" },
-        { title: "Cocktail de frutas deshidratadas" }
+        { title: "Frutas deshidratadas", active: true },
+        { title: "Frutos secos", active: false },
+        { title: "Semillas", active: false }
       ]
     },
     {
       action: "restaurant",
-      title: "Frutos secos",
+      title: "Suplementos",
       items: [
-        { title: "Pasas negras" },
-        { title: "Pasas rubias" },
-        { title: "Avellanas" },
-        { title: "Almendras" }
-      ]
-    },
-    {
-      action: "restaurant",
-      title: "Semillas",
-      items: [
-        { title: "Semillas de sésamo" },
-        { title: "Semillas de calabaza" },
-        { title: "Semillas de girasol" },
-        { title: "Semillas de linaza" },
-        { title: "Semillas de chia" }
+        { title: "Proteína en polvo", active: false },
+        { title: "BCAA", active: false }
       ]
     }
   ];
@@ -72,5 +58,13 @@ export default class Tienda extends Vue {
   created() {
     this.isLoading = false;
     setTimeout(() => (this.isLoading = false), 2000);
+  }
+
+  filterProducts(subItemIndex: number, index: number) {
+    for (let i = 0; i < this.categories[index].items.length; i++) {
+      if (i == subItemIndex) continue;
+      this.categories[index].items[i].active = false;
+    }
+    this.categories[index].items[subItemIndex].active = true;
   }
 }
