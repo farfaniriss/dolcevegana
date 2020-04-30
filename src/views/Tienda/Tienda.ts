@@ -1,4 +1,7 @@
+import { subcategory } from "./../../interfaces/subcategory";
 import { Component, Vue } from "vue-property-decorator";
+import categoryService from "@/services/category.service";
+import { category } from "@/interfaces/category";
 
 @Component
 export default class Tienda extends Vue {
@@ -14,41 +17,23 @@ export default class Tienda extends Vue {
       text: "Tienda",
       disabled: false,
       link: true,
-      to: "/"
+      to: "/",
     },
     {
       text: "Supermercado",
       disabled: false,
       link: true,
-      to: "/blog"
+      to: "/blog",
     },
     {
       text: "Frutas deshidratadas",
       disabled: true,
       link: true,
-      to: "/blog"
-    }
-  ];
-  categories = [
-    {
-      action: "restaurant",
-      title: "Supermercado",
-      active: true,
-      items: [
-        { title: "Frutas deshidratadas", active: true },
-        { title: "Frutos secos", active: false },
-        { title: "Semillas", active: false }
-      ]
+      to: "/blog",
     },
-    {
-      action: "restaurant",
-      title: "Suplementos",
-      items: [
-        { title: "Proteína en polvo", active: false },
-        { title: "BCAA", active: false }
-      ]
-    }
   ];
+
+  categories: category[] = [];
 
   reserve() {
     this.isAddingToCart = true;
@@ -57,14 +42,20 @@ export default class Tienda extends Vue {
 
   created() {
     this.isLoading = false;
-    setTimeout(() => (this.isLoading = false), 2000);
+    categoryService
+      .getCategories()
+      .then((response) => {
+        console.log(response.data);
+        this.categories = response.data;
+      })
+      .catch((error) => console.log(error));
   }
 
   filterProducts(subItemIndex: number, index: number) {
-    for (let i = 0; i < this.categories[index].items.length; i++) {
+    for (let i = 0; i < this.categories[index].subcategorys.length; i++) {
       if (i == subItemIndex) continue;
-      this.categories[index].items[i].active = false;
+      this.categories[index].subcategorys[i].active = false;
     }
-    this.categories[index].items[subItemIndex].active = true;
+    this.categories[index].subcategorys[subItemIndex].active = true;
   }
 }

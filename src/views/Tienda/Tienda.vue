@@ -22,25 +22,25 @@
             <v-divider></v-divider>
             <v-list>
               <v-list-group
-                v-for="(item, index) in categories"
-                :key="item.title"
-                v-model="item.active"
+                v-for="(category, index) in categories"
+                :key="category.categoryName"
+                v-model="category.active"
                 no-action
               >
                 <template v-slot:activator>
                   <v-list-item-content>
-                    <v-list-item-title v-text="item.title"></v-list-item-title>
+                    <v-list-item-title v-text="category.categoryName"></v-list-item-title>
                   </v-list-item-content>
                 </template>
 
                 <v-list-item
-                  v-for="(subItem, subItemIndex) in item.items"
-                  :key="subItem.title"
-                  v-model="subItem.active"
-                  @click="filterProducts(subItemIndex, index)"
+                  v-for="(subcategory, subcategoryIndex) in category.subcategorys"
+                  :key="subcategory.name"
+                  v-model="subcategory.active"
+                  @click="filterProducts(subcategoryIndex, index)"
                 >
                   <v-list-item-content>
-                    <v-list-item-title active-class="pink--text" v-text="subItem.title"></v-list-item-title>
+                    <v-list-item-title active-class="pink--text" v-text="subcategory.name"></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-group>
