@@ -1,16 +1,11 @@
 <template>
   <v-container>
     <div>
-      <v-breadcrumbs :items="navigation" :large="true" :divider="'>'">
-        <!-- <template v-slot:item="props">
-          <v-breadcrumbs-item
-            :href="props.item.href"
-            :class="[props.item.disabled && 'disabled']"
-          >
-            {{ props.item.text.toUpperCase() }}
-          </v-breadcrumbs-item>
-        </template>-->
-      </v-breadcrumbs>
+      Tienda
+      <span v-show="activeCategory != ''">></span>
+      {{ activeCategory }}
+      <span v-show="activeSubcategory != ''">></span>
+      {{ activeSubcategory }}
     </div>
     <v-row>
       <v-col :cols="12" :md="3" :lg="2">
@@ -26,6 +21,7 @@
                 :key="category.categoryName"
                 v-model="category.active"
                 no-action
+                @click="selectCategory(index)"
               >
                 <template v-slot:activator>
                   <v-list-item-content>
@@ -37,7 +33,7 @@
                   v-for="(subcategory, subcategoryIndex) in category.subcategorys"
                   :key="subcategory.name"
                   v-model="subcategory.active"
-                  @click="filterProducts(subcategoryIndex, index)"
+                  @click="selectSubcategory(subcategoryIndex, index)"
                 >
                   <v-list-item-content>
                     <v-list-item-title active-class="pink--text" v-text="subcategory.name"></v-list-item-title>
