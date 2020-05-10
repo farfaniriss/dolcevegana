@@ -1,17 +1,17 @@
-import { subcategory } from "./../../interfaces/subcategory";
 import { Component, Vue } from "vue-property-decorator";
+
 import categoryService from "@/services/category.service";
+import subcategoryService from "@/services/subcategory.service";
+import attributeService from "@/services/attribute.service";
+
+import { subcategory } from "@/interfaces/subcategory";
 import { category } from "@/interfaces/category";
+import { productAttribute } from "@/interfaces/productAttribute";
+import { product } from "@/interfaces/product";
 
 @Component
 export default class Tienda extends Vue {
-  isLoading = true;
-  isAddingToCart = false;
-  hearted = false;
   isActive = false;
-  selection = 1;
-  items = ["Gluten free", "Orgánico", "Non GMO", "Libre de soja"];
-  model = ["Carrots"];
   navigation = [
     {
       text: "Tienda",
@@ -21,15 +21,14 @@ export default class Tienda extends Vue {
     },
   ];
 
+  attributes: productAttribute[] = [];
   categories: category[] = [];
+  products: product[] = [];
 
-  reserve() {
-    this.isAddingToCart = true;
-    setTimeout(() => (this.isAddingToCart = false), 2000);
-  }
+  isLoadingCategories = true;
+  isLoadingAttributes = true;
 
   created() {
-    this.isLoading = false;
     categoryService
       .getCategories()
       .then((response) => {
@@ -41,6 +40,15 @@ export default class Tienda extends Vue {
         });
 
         this.categories = response.data;
+        this.isLoadingCategories = false;
+      })
+      .catch((error) => console.log(error));
+
+    attributeService
+      .getAttributes()
+      .then((response) => {
+        this.attributes = response.data;
+        this.isLoadingAttributes = false;
       })
       .catch((error) => console.log(error));
   }
@@ -81,5 +89,42 @@ export default class Tienda extends Vue {
       this.categories[index].subcategorys[i].active = false;
     }
     this.categories[index].subcategorys[subItemIndex].active = true;
+
+    this.getSubcategoryProducts(
+      this.categories[index].subcategorys[subItemIndex].id
+    );
+  }
+
+  getSubcategoryProducts(id: number) {
+    subcategoryService
+      .getSubcategories(id)
+      .then((response) => {
+        response.data.products.forEach((element: product) => {
+          element.isAddingToCart = false;
+          element.isAddedToCart = false;
+          element.isFavorite = false;
+        });
+
+        this.products = response.data.products;
+      })
+      .catch((error) => console.log(error));
+  }
+
+  addToCart(productIndex: number) {
+    const product = this.products[productIndex];
+    this.products[productIndex].isAddingToCart = true;
+    this.$store
+      .dispatch("addToCart", product)
+      .then(() => {
+        setTimeout(() => {
+          this.products[productIndex].isAddedToCart = true;
+          setTimeout(() => {
+            this.products[productIndex].isAddingToCart = false;
+          }, 500);
+        }, 900);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }

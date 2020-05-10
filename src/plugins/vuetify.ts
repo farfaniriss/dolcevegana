@@ -13,7 +13,7 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
-    iconfont: "md"
+    iconfont: "md",
   },
   theme: {
     themes: {
@@ -21,11 +21,11 @@ export default new Vuetify({
         primary: "#99c36b",
         secondary: "#BBD38B",
         accent: "#777D71",
-        info: "#AAD46F",
+        info: "#7FB287",
         warning: "#ffc107",
         error: "#dd2c00",
-        success: "#00e676"
-      }
-    }
-  }
+        success: "#00e676",
+      },
+    },
+  },
 });

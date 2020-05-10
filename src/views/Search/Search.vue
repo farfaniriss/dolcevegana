@@ -8,7 +8,7 @@
           autofocus
           :loading="isLoading"
           :search-input.sync="search"
-          color="light-green lighten-1"
+          color="#7FB287"
           hide-no-data
           hide-selected
           item-text="Description"

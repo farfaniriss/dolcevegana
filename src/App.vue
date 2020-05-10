@@ -14,7 +14,7 @@
         <v-btn icon>
           <v-icon>mdi-heart</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click.stop="cartDrawer = !cartDrawer">
           <v-icon>shopping_cart</v-icon>
         </v-btn>
         <v-btn icon>
@@ -75,6 +75,15 @@
         </v-list>
       </template>
     </v-navigation-drawer>
+    <v-navigation-drawer v-model="cartDrawer" width="400" right temporary fixed>
+      <v-row justify="center">
+        <v-col cols="12" class="mt-4 ml-6 pl-6">
+          <p class="title text-uppercase font-weight-bold">carrito de compras</p>
+          <v-divider></v-divider>
+          <p class="mt-6" v-show="cartItems.length == 0">Tu carrito esta vacio</p>
+        </v-col>
+      </v-row>
+    </v-navigation-drawer>
     <v-footer dark padless absolute app class="d-none d-sm-flex justify-center">
       <v-card flat tile class="lighten-1 white--text text-center footer-color">
         <v-card-text>
@@ -129,11 +138,6 @@ export default Vue.extend({
         title: "Tienda",
         to: "/tienda"
       },
-      // {
-      //   icon: "restaurant",
-      //   title: "Recetas",
-      //   to: "/recetas"
-      // },
       {
         icon: "menu_book",
         title: "Blog",
@@ -166,6 +170,7 @@ export default Vue.extend({
     miniVariant: false,
     right: true,
     navigationDrawer: false,
+    cartDrawer: false,
     title: "Vegan Superfoods"
   }),
   methods: {
@@ -176,6 +181,11 @@ export default Vue.extend({
     },
     toTop() {
       this.$vuetify.goTo(0);
+    }
+  },
+  computed: {
+    cartItems: function() {
+      return this.$store.state.cartItems;
     }
   }
 });

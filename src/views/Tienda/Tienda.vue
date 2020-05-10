@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <div>
-      Tienda
+      <!-- Tienda
       <span v-show="activeCategory != ''">></span>
       {{ activeCategory }}
       <span v-show="activeSubcategory != ''">></span>
-      {{ activeSubcategory }}
+      {{ activeSubcategory }}-->
     </div>
     <v-row>
       <v-col :cols="12" :md="3" :lg="2">
@@ -15,66 +15,78 @@
               <span class="title font-weight-light">Categorías</span>
             </v-card-title>
             <v-divider></v-divider>
-            <v-list>
-              <v-list-group
-                v-for="(category, index) in categories"
-                :key="category.categoryName"
-                v-model="category.active"
-                no-action
-                @click="selectCategory(index)"
-              >
-                <template v-slot:activator>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="category.categoryName"></v-list-item-title>
-                  </v-list-item-content>
-                </template>
-
-                <v-list-item
-                  v-for="(subcategory, subcategoryIndex) in category.subcategorys"
-                  :key="subcategory.name"
-                  v-model="subcategory.active"
-                  @click="selectSubcategory(subcategoryIndex, index)"
+            <v-skeleton-loader
+              :loading="isLoadingCategories"
+              transition="fade-transition"
+              type="list-item"
+            >
+              <v-list>
+                <v-list-group
+                  v-for="(category, index) in categories"
+                  :key="category.categoryName"
+                  v-model="category.active"
+                  no-action
+                  @click="selectCategory(index)"
                 >
-                  <v-list-item-content>
-                    <v-list-item-title active-class="pink--text" v-text="subcategory.name"></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-group>
-            </v-list>
+                  <template v-slot:activator>
+                    <v-list-item-content>
+                      <v-list-item-title v-text="category.categoryName"></v-list-item-title>
+                    </v-list-item-content>
+                  </template>
+
+                  <v-list-item
+                    v-for="(subcategory, subcategoryIndex) in category.subcategorys"
+                    :key="subcategory.name"
+                    v-model="subcategory.active"
+                    @click="selectSubcategory(subcategoryIndex, index)"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title active-class="pink--text" v-text="subcategory.name"></v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-group>
+              </v-list>
+            </v-skeleton-loader>
           </v-card>
           <v-divider></v-divider>
           <v-card-title>
             <span class="title font-weight-light">Filtros</span>
           </v-card-title>
-          <v-list shaped>
-            <v-list-item-group v-model="model" multiple>
-              <template v-for="(item, i) in items">
-                <v-list-item :key="`item-${i}`" :value="item" active-class="primary--text">
-                  <template v-slot:default="{ active, toggle }">
-                    <v-list-item-content>
-                      <v-list-item-title v-text="item"></v-list-item-title>
-                    </v-list-item-content>
+          <v-skeleton-loader
+            :loading="isLoadingAttributes"
+            transition="fade-transition"
+            type="list-item"
+          >
+            <v-list shaped>
+              <v-list-item-group multiple>
+                <template v-for="(item, i) in attributes">
+                  <v-list-item :key="i" :value="item.id" active-class="primary--text">
+                    <template v-slot:default="{ active, toggle }">
+                      <v-list-item-content>
+                        <v-list-item-title v-text="item.name"></v-list-item-title>
+                      </v-list-item-content>
 
-                    <v-list-item-action>
-                      <v-checkbox
-                        :input-value="active"
-                        :true-value="item"
-                        color="secondary accent-4"
-                        @click="toggle"
-                      ></v-checkbox>
-                    </v-list-item-action>
-                  </template>
-                </v-list-item>
-              </template>
-            </v-list-item-group>
-          </v-list>
+                      <v-list-item-action>
+                        <v-checkbox
+                          :input-value="active"
+                          :true-value="item.id"
+                          color="secondary accent-4"
+                          @click="toggle"
+                        ></v-checkbox>
+                      </v-list-item-action>
+                    </template>
+                  </v-list-item>
+                </template>
+              </v-list-item-group>
+            </v-list>
+          </v-skeleton-loader>
         </v-card>
       </v-col>
       <v-col :cols="12" :md="9" :lg="10">
         <v-container class="pa-0">
           <v-row no-gutters>
             <v-col
-              v-for="(n, index) in 10"
+              v-for="(product, index) in products"
               :key="index"
               class="px-1 px-lg-12"
               lg="3"
@@ -90,7 +102,7 @@
                 min-height="200"
                 transition="fade-transition"
               >
-                <v-card :loading="isAddingToCart" class="mx-auto mb-12" flat tile outlined>
+                <v-card :loading="false" class="mx-auto mb-12" flat tile outlined>
                   <v-container>
                     <v-row justify="start">
                       <v-col lg="12" md="12" sm="6" xs="6" class="pa-xs-0 pa-sm-0">
@@ -98,8 +110,8 @@
                           <v-img
                             height="250"
                             aspect-ratio="1"
-                            src="https://images.unsplash.com/photo-1515470795860-432fb0098a39?ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80"
-                            srcset="https://i.imgur.com/J7rIsFH.jpg"
+                            :src="product.image_url"
+                            :lazy-src="product.thumbnail_url"
                           >
                             <v-expand-transition>
                               <div
@@ -118,22 +130,20 @@
 
                       <v-col lg="12" md="12" sm="6" xs="6" class="pa-xs-0 pa-sm-0">
                         <v-card-title class="mb-0 pb-0">
-                          Naranja deshidratada
+                          {{ product.name }}
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                               <v-btn
                                 text
                                 icon
-                                :color="
-                              hearted ? 'red lighten-1' : 'grey lighten-1'
-                            "
-                                @click="hearted = !hearted"
+                                :color="product.isFavorite ? 'red lighten-1' : 'grey lighten-1'"
+                                @click="product.isFavorite = !product.isFavorite"
                               >
                                 <v-icon v-on="on">mdi-heart</v-icon>
                               </v-btn>
                             </template>
-                            <span v-show="!hearted">Agregar a favoritos</span>
-                            <span v-show="hearted">Remover de favoritos</span>
+                            <span v-show="!product.isFavorite">Agregar a favoritos</span>
+                            <span v-show="product.isFavorite">Remover de favoritos</span>
                           </v-tooltip>
                         </v-card-title>
 
@@ -156,11 +166,21 @@
                           <v-btn
                             color="red lighten-1"
                             class="white--text"
-                            @click="reserve"
+                            @click="addToCart(index)"
+                            :loading="product.isAddingToCart"
                             outlined
                           >
                             <v-icon>mdi-cart</v-icon>
                             <span style="font-size: 11px;">Añadir al carrito</span>
+                            <template v-slot:loader>
+                              <span
+                                style="font-size: 11px;"
+                                v-show="!product.isAddedToCart"
+                              >Añadiendo...</span>
+                              <span class="custom-loader" v-show="product.isAddedToCart">
+                                <v-icon light>mdi-check</v-icon>
+                              </span>
+                            </template>
                           </v-btn>
                           <v-spacer></v-spacer>
                         </v-card-actions>

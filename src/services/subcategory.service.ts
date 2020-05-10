@@ -1,9 +1,9 @@
 import Vue from "vue";
 
-const categoryService = {
-  getCategories() {
-    return Vue.axios.get(`/api/v1/categories`);
+const subcategoryService = {
+  getSubcategories(id: number) {
+    return Vue.axios.get(`/api/v1/subcategories/${id}`);
   },
 };
 
-export default categoryService;
+export default subcategoryService;

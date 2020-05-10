@@ -3,15 +3,23 @@
     <v-flex xs12 sm12>
       <v-parallax
         dark
-        src="https://images.pexels.com/photos/2103949/pexels-photo-2103949.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+        src="https://firebasestorage.googleapis.com/v0/b/veganshop-b5be1.appspot.com/o/home%2Fbackground.png?alt=media&token=298a7166-cd28-4b3f-b432-d20c5ddb8b52"
       >
         <v-row align="center" justify="center">
           <v-col class="text-center" cols="12">
-            <h1 class="font-weight-thin mb-4 main-header">You are what you eat</h1>
+            <!-- <h1 class="font-weight-thin mb-4 main-header">VeganSuperfoods</h1> -->
+            <div class="d-flex justify-center">
+              <v-img
+                src="https://firebasestorage.googleapis.com/v0/b/veganshop-b5be1.appspot.com/o/home%2Fvegansuperfoods.png?alt=media&token=ada906fa-4f9f-4e61-a9c1-001e6c343c0a"
+                :aspect-ratio="7.565"
+                contain
+                max-height="76"
+              ></v-img>
+            </div>
             <h4
-              class="subheading"
-            >There is no fundamental difference between man and animals in their ability to feel pleasure and pain, happiness, and misery</h4>
-            <v-btn outlined class="mt-5">Comprar ahora</v-btn>
+              class="subheading mx-4"
+            >Deje que los alimentos sean su medicina y la medicina sea su alimento</h4>
+            <v-btn outlined color="#ffffff" class="mt-5" to="/tienda">Comprar ahora</v-btn>
           </v-col>
         </v-row>
       </v-parallax>
@@ -62,8 +70,7 @@
     </v-container>
   </v-layout>
 </template>
-<script lang="ts" src="./Home.ts">
-</script>
+<script lang="ts" src="./Home.ts"></script>
 <style lang="scss" scoped>
 .main-header {
   font-family: "PT Serif", serif;
@@ -72,7 +79,7 @@
 }
 
 .subheading {
-  color: $font-color-gray;
+  color: #ffffff;
   font-weight: lighter;
 }
 
