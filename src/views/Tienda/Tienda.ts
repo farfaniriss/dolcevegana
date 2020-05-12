@@ -24,6 +24,7 @@ export default class Tienda extends Vue {
   attributes: productAttribute[] = [];
   categories: category[] = [];
   products: product[] = [];
+  productSkus: product[] = [];
 
   isLoadingCategories = true;
   isLoadingAttributes = true;
@@ -51,27 +52,6 @@ export default class Tienda extends Vue {
         this.isLoadingAttributes = false;
       })
       .catch((error) => console.log(error));
-  }
-
-  get activeCategory() {
-    const index = this.categories.findIndex((c) => c.active);
-    if (index != -1) {
-      return this.categories[index].categoryName;
-    }
-    return "";
-  }
-
-  get activeSubcategory() {
-    const index = this.categories.findIndex((c) => c.active);
-    if (index != -1) {
-      const subIndex = this.categories[index].subcategorys.findIndex(
-        (c) => c.active
-      );
-      if (subIndex != -1) {
-        return this.categories[index].subcategorys[subIndex].name;
-      }
-    }
-    return "";
   }
 
   selectCategory(index: number) {
@@ -106,20 +86,49 @@ export default class Tienda extends Vue {
         });
 
         this.products = response.data.products;
+        this.getProductSkus();
       })
       .catch((error) => console.log(error));
   }
 
+  getProductSkus() {
+    let newProducts: product[] = [];
+    for (let index = 0; index < this.products.length; index++) {
+      let cloneProduct = Object.assign({}, this.products[index]);
+      for (
+        let skuI = 0;
+        skuI < this.products[index].productSkus.length;
+        skuI++
+      ) {
+        const sku = this.products[index].productSkus[skuI];
+        if (skuI == 0) {
+          this.products[index].price = sku.price;
+          this.products[index].skuCode = sku.skuCode;
+          this.products[
+            index
+          ].name = `${this.products[index].name} (${sku.size})`;
+          newProducts.push(this.products[index]);
+        } else {
+          cloneProduct.price = sku.price;
+          cloneProduct.skuCode = sku.skuCode;
+          cloneProduct.name = `${cloneProduct.name} (${sku.size})`;
+          newProducts.push(cloneProduct);
+        }
+      }
+    }
+    this.productSkus = newProducts;
+  }
+
   addToCart(productIndex: number) {
-    const product = this.products[productIndex];
-    this.products[productIndex].isAddingToCart = true;
+    const product = this.productSkus[productIndex];
+    this.productSkus[productIndex].isAddingToCart = true;
     this.$store
       .dispatch("addToCart", product)
       .then(() => {
         setTimeout(() => {
-          this.products[productIndex].isAddedToCart = true;
+          this.productSkus[productIndex].isAddedToCart = true;
           setTimeout(() => {
-            this.products[productIndex].isAddingToCart = false;
+            this.productSkus[productIndex].isAddingToCart = false;
           }, 500);
         }, 900);
       })

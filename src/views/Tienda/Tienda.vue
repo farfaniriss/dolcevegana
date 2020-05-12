@@ -86,7 +86,7 @@
         <v-container class="pa-0">
           <v-row no-gutters>
             <v-col
-              v-for="(product, index) in products"
+              v-for="(product, index) in productSkus"
               :key="index"
               class="px-1 px-lg-12"
               lg="3"
@@ -159,7 +159,7 @@
                               <span class="white--text" style="font-size: 10px;">O</span>
                             </v-avatar>
                           </v-row>
-                          <div class="my-4 subtitle-1 black--text">S/ 12.00</div>
+                          <div class="my-4 subtitle-1 black--text">S/ {{ product.price }}</div>
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>

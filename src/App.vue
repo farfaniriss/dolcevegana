@@ -75,15 +75,7 @@
         </v-list>
       </template>
     </v-navigation-drawer>
-    <v-navigation-drawer v-model="cartDrawer" width="400" right temporary fixed>
-      <v-row justify="center">
-        <v-col cols="12" class="mt-4 ml-6 pl-6">
-          <p class="title text-uppercase font-weight-bold">carrito de compras</p>
-          <v-divider></v-divider>
-          <p class="mt-6" v-show="cartItems.length == 0">Tu carrito esta vacio</p>
-        </v-col>
-      </v-row>
-    </v-navigation-drawer>
+    <ShoppingCartDrawer :cartDrawer="cartDrawer" v-on:changedCartVisibility="cartDrawer = $event"></ShoppingCartDrawer>
     <v-footer dark padless absolute app class="d-none d-sm-flex justify-center">
       <v-card flat tile class="lighten-1 white--text text-center footer-color">
         <v-card-text>
@@ -115,9 +107,13 @@
 
 <script lang="ts">
 import Vue from "vue";
+import ShoppingCartDrawer from "@/components/ShoppingCartDrawer.vue";
 
 export default Vue.extend({
   name: "App",
+  components: {
+    ShoppingCartDrawer
+  },
 
   data: () => ({
     searchKey: "",
@@ -167,8 +163,6 @@ export default Vue.extend({
       }
     ],
     icons: ["fab fa-facebook", "fab fa-google-plus", "fab fa-instagram"],
-    miniVariant: false,
-    right: true,
     navigationDrawer: false,
     cartDrawer: false,
     title: "Vegan Superfoods"
@@ -181,11 +175,6 @@ export default Vue.extend({
     },
     toTop() {
       this.$vuetify.goTo(0);
-    }
-  },
-  computed: {
-    cartItems: function() {
-      return this.$store.state.cartItems;
     }
   }
 });

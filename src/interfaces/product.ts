@@ -9,7 +9,10 @@ export interface product {
   image_url: string;
   productSkus: sku[];
   productAttributes: productAttribute[];
-  minPrice: number;
+
+  skuCode: string;
+  price: number;
+  quantity: number;
 
   isAddingToCart: boolean;
   isAddedToCart: boolean;
