@@ -13,6 +13,10 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
+Vue.filter("formatNumber", function(value: number) {
+  return value.toFixed(2);
+});
+
 new Vue({
   router,
   store,

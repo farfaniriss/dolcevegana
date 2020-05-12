@@ -12,8 +12,8 @@
         <p class="title text-uppercase font-weight-bold">carrito de compras</p>
         <v-divider></v-divider>
         <p class="mt-6" v-show="cartItems.length == 0">Tu carrito está vacío</p>
-        <template v-show="cartItems.length > 0">
-          <v-container>
+        <template>
+          <v-container v-show="cartItems.length > 0">
             <v-row dense no-gutters v-for="(cartItem, i) in cartItems" :key="i" class="my-3">
               <v-col cols="6">
                 <v-card flat>
@@ -37,14 +37,17 @@
                   type="number"
                 />
               </v-col>
-              <v-col cols="3" class="d-flex align-center">S/ {{ cartItem.quantity*cartItem.price }}</v-col>
+              <v-col
+                cols="3"
+                class="d-flex align-center"
+              >S/ {{ cartItem.quantity*cartItem.price | formatNumber }}</v-col>
             </v-row>
             <v-row dense no-gutters class="mt-6">
               <v-col cols="9">
                 <p class="font-weight-bold">Subtotal</p>
               </v-col>
               <v-col cols="3">
-                <p class="font-weight-bold">S/ {{ getSubtotal() }}</p>
+                <p class="font-weight-bold">S/ {{ getSubtotal() | formatNumber }}</p>
               </v-col>
             </v-row>
             <v-row dense no-gutters>
@@ -62,7 +65,7 @@
                 <p class="font-weight-bold">Total</p>
               </v-col>
               <v-col cols="3">
-                <p class="font-weight-bold">S/ {{getSubtotal() + getDelivery()}}</p>
+                <p class="font-weight-bold">S/ {{getSubtotal() + getDelivery() | formatNumber}}</p>
               </v-col>
             </v-row>
           </v-container>
@@ -127,7 +130,6 @@ export default Vue.extend({
   },
   computed: {
     cartItems: function(): product[] {
-      console.log(this.$store.state.cartItems);
       return this.$store.state.cartItems;
     },
     isVisible: function() {
