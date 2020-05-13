@@ -4,8 +4,14 @@
       <!-- <v-toolbar-title v-text="title" /> -->
       <v-btn dark text medium class="ma-1 logo">{{ title }}</v-btn>
 
-      <v-tabs centered background-color="transparent" class="d-none d-sm-flex justify-center">
-        <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">{{ menu.title }}</v-tab>
+      <v-tabs
+        centered
+        background-color="transparent"
+        class="d-none d-sm-flex justify-center"
+      >
+        <v-tab v-for="(menu, index) in menus" :key="index" :to="menu.to">{{
+          menu.title
+        }}</v-tab>
       </v-tabs>
       <div class="d-none d-sm-flex">
         <v-btn icon to="search">
@@ -14,9 +20,17 @@
         <v-btn icon>
           <v-icon>mdi-heart</v-icon>
         </v-btn>
-        <v-btn icon @click.stop="cartDrawer = !cartDrawer">
-          <v-icon>shopping_cart</v-icon>
-        </v-btn>
+        <v-badge
+          :content="cartItemsTotal"
+          :value="cartItemsTotal"
+          overlap
+          color="#EF5350"
+          offset-y="19"
+        >
+          <v-btn icon @click.stop="cartDrawer = !cartDrawer">
+            <v-icon>shopping_cart</v-icon>
+          </v-btn>
+        </v-badge>
         <v-btn icon>
           <v-icon>person</v-icon>
         </v-btn>
@@ -35,7 +49,10 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <transition name="routerAnimation" enter-active-class="animated faster fadeIn">
+      <transition
+        name="routerAnimation"
+        enter-active-class="animated faster fadeIn"
+      >
         <router-view></router-view>
       </transition>
       <v-fab-transition>
@@ -57,7 +74,11 @@
     </v-content>
     <v-navigation-drawer v-model="navigationDrawer" right temporary fixed>
       <v-list>
-        <v-list-item v-for="(menu, index) in userMenus" :key="index" :to="menu.to">
+        <v-list-item
+          v-for="(menu, index) in userMenus"
+          :key="index"
+          :to="menu.to"
+        >
           <v-list-item-icon>
             <v-icon>{{ menu.icon }}</v-icon>
           </v-list-item-icon>
@@ -75,28 +96,48 @@
         </v-list>
       </template>
     </v-navigation-drawer>
-    <ShoppingCartDrawer :cartDrawer="cartDrawer" v-on:changedCartVisibility="cartDrawer = $event"></ShoppingCartDrawer>
+    <ShoppingCartDrawer
+      :cartDrawer="cartDrawer"
+      v-on:changedCartVisibility="cartDrawer = $event"
+    ></ShoppingCartDrawer>
     <v-footer dark padless absolute app class="d-none d-sm-flex justify-center">
       <v-card flat tile class="lighten-1 white--text text-center footer-color">
         <v-card-text>
-          <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
+          <v-btn
+            v-for="icon in icons"
+            :key="icon"
+            class="mx-4 white--text"
+            icon
+          >
             <v-icon size="24px">{{ icon }}</v-icon>
           </v-btn>
         </v-card-text>
 
-        <v-card-text
-          class="white--text pt-0"
-        >Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</v-card-text>
+        <v-card-text class="white--text pt-0"
+          >Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
+          Mauris cursus commodo interdum. Praesent ut risus eget metus luctus
+          accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim
+          a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula
+          lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus
+          iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum
+          tempor vel ut orci. Orci varius natoque penatibus et magnis dis
+          parturient montes, nascetur ridiculus mus.</v-card-text
+        >
 
         <v-divider></v-divider>
 
         <v-card-text class="white--text">
           {{ new Date().getFullYear() }} —
-          <strong>{{title}}</strong>
+          <strong>{{ title }}</strong>
         </v-card-text>
       </v-card>
     </v-footer>
-    <v-bottom-navigation light fixed class="d-flex d-sm-none mr-1" active-class="active-menu">
+    <v-bottom-navigation
+      light
+      fixed
+      class="d-flex d-sm-none mr-1"
+      active-class="active-menu"
+    >
       <v-btn v-for="(menu, index) in menus" :key="index" :to="menu.to">
         <span>{{ menu.title }}</span>
         <v-icon>{{ menu.icon }}</v-icon>
@@ -108,15 +149,17 @@
 <script lang="ts">
 import Vue from "vue";
 import ShoppingCartDrawer from "@/components/ShoppingCartDrawer.vue";
+import { product } from "@/interfaces/product";
 
 export default Vue.extend({
   name: "App",
   components: {
-    ShoppingCartDrawer
+    ShoppingCartDrawer,
   },
 
   data: () => ({
     searchKey: "",
+    messages: 1,
     searchItems: [],
     isLoadingSearch: false,
     search: "",
@@ -127,45 +170,45 @@ export default Vue.extend({
       {
         icon: "mdi-home",
         title: "Inicio",
-        to: "/"
+        to: "/",
       },
       {
         icon: "store",
         title: "Tienda",
-        to: "/tienda"
+        to: "/tienda",
       },
       {
         icon: "menu_book",
         title: "Blog",
-        to: "/blog"
-      }
+        to: "/blog",
+      },
     ],
     userMenus: [
       {
         icon: "person",
         title: "Perfil",
-        to: "/perfil"
+        to: "/perfil",
       },
       {
         icon: "local_shipping",
         title: "Mis ordenes",
-        to: "/ordernes"
+        to: "/ordernes",
       },
       {
         icon: "favorite",
         title: "Favoritos",
-        to: "/favoritos"
+        to: "/favoritos",
       },
       {
         icon: "shopping_cart",
         title: "Carrito",
-        to: "/carrito"
-      }
+        to: "/carrito",
+      },
     ],
     icons: ["fab fa-facebook", "fab fa-google-plus", "fab fa-instagram"],
     navigationDrawer: false,
     cartDrawer: false,
-    title: "Vegan Superfoods"
+    title: "Vegan Superfoods",
   }),
   methods: {
     onScroll(e: any) {
@@ -175,8 +218,16 @@ export default Vue.extend({
     },
     toTop() {
       this.$vuetify.goTo(0);
-    }
-  }
+    },
+  },
+  computed: {
+    cartItemsTotal: function() {
+      return this.$store.state.cartItems.reduce(
+        (a: any, b: product) => +a + +b.quantity,
+        0
+      );
+    },
+  },
 });
 </script>
 

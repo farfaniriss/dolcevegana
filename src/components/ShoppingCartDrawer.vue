@@ -13,7 +13,18 @@
         <v-divider></v-divider>
         <p class="mt-6" v-show="cartItems.length == 0">Tu carrito está vacío</p>
         <template>
-          <v-container v-show="cartItems.length > 0">
+          <v-container v-show="cartItems.length > 0" class="pr-6">
+            <v-row dense no-gutters class="mt-6">
+              <v-col cols="6">
+                <p class="font-weight-bold">Producto</p>
+              </v-col>
+              <v-col cols="3">
+                <p class="font-weight-bold">Cantidad</p>
+              </v-col>
+              <v-col cols="3">
+                <p class="font-weight-bold">Total</p>
+              </v-col>
+            </v-row>
             <v-row dense no-gutters v-for="(cartItem, i) in cartItems" :key="i" class="my-3">
               <v-col cols="6">
                 <v-card flat>
@@ -38,9 +49,14 @@
                 />
               </v-col>
               <v-col
-                cols="3"
+                cols="2"
                 class="d-flex align-center"
               >S/ {{ cartItem.quantity*cartItem.price | formatNumber }}</v-col>
+              <v-col cols="1" class="d-flex align-center">
+                <v-btn icon title="Remover del carrito" @click="removeFromCart(cartItem)">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </v-col>
             </v-row>
             <v-row dense no-gutters class="mt-6">
               <v-col cols="9">
@@ -57,7 +73,7 @@
               <v-col cols="3">
                 <p
                   class="font-weight-bold"
-                >{{ getDelivery() == 0 ? 'Gratis!' : 'S/ ' + getDelivery()}}</p>
+                >{{ getDelivery() == 0 ? '¡Gratis!' : 'S/ ' + getDelivery() }}</p>
               </v-col>
             </v-row>
             <v-row dense no-gutters>
@@ -75,7 +91,11 @@
                 <v-btn depressed color="primary">Ir a pagar</v-btn>
               </v-col>
               <v-col>
-                <v-btn depressed color="primary">Seguir comprando</v-btn>
+                <v-btn
+                  depressed
+                  color="primary"
+                  @click="$emit('changedCartVisibility', false)"
+                >Seguir comprando</v-btn>
               </v-col>
             </v-row>
           </v-container>
@@ -96,9 +116,6 @@ export default Vue.extend({
   },
   data: () => ({}),
   methods: {
-    keepShopping() {
-      // Seguir comprando
-    },
     goToPay() {
       //Ir a pagar
     },
@@ -116,6 +133,14 @@ export default Vue.extend({
           console.error(error);
         });
     },
+    removeFromCart(cartItem: product) {
+      this.$store
+        .dispatch("removeFromCart", cartItem)
+        .then(() => {})
+        .catch(error => {
+          console.error(error);
+        });
+    },
     getSubtotal() {
       return this.cartItems.reduce((a, b) => +a + +b.quantity * b.price, 0);
     },
@@ -124,7 +149,7 @@ export default Vue.extend({
       if (subtotal >= 100) {
         return 0;
       } else {
-        return 12;
+        return 12.0;
       }
     }
   },

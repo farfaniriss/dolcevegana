@@ -32,6 +32,7 @@ export default new Vuex.Store({
         (p) => p.skuCode == product.skuCode
       );
       state.cartItems[index].quantity = product.quantity;
+      Vue.set(state.cartItems, index, product);
     },
   },
   actions: {

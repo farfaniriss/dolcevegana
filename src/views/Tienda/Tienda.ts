@@ -12,19 +12,28 @@ import { product } from "@/interfaces/product";
 @Component
 export default class Tienda extends Vue {
   isActive = false;
-  navigation = [
-    {
-      text: "Tienda",
-      disabled: false,
-      link: true,
-      to: "/tienda",
-    },
-  ];
-
   attributes: productAttribute[] = [];
   categories: category[] = [];
   products: product[] = [];
   productSkus: product[] = [];
+  orden = [
+    {
+      text: "Precio (Alto-Bajo)",
+      value: 1,
+    },
+    {
+      text: "Precio (Bajo-Alto)",
+      value: 2,
+    },
+    {
+      text: "Alfabético (A-Z)",
+      value: 3,
+    },
+    {
+      text: "Alfabético (Z-A)",
+      value: 4,
+    },
+  ];
 
   isLoadingCategories = true;
   isLoadingAttributes = true;
@@ -129,8 +138,8 @@ export default class Tienda extends Vue {
           this.productSkus[productIndex].isAddedToCart = true;
           setTimeout(() => {
             this.productSkus[productIndex].isAddingToCart = false;
-          }, 500);
-        }, 900);
+          }, 300);
+        }, 400);
       })
       .catch((error) => {
         console.error(error);

@@ -30,18 +30,24 @@
                 >
                   <template v-slot:activator>
                     <v-list-item-content>
-                      <v-list-item-title v-text="category.categoryName"></v-list-item-title>
+                      <v-list-item-title
+                        v-text="category.categoryName"
+                      ></v-list-item-title>
                     </v-list-item-content>
                   </template>
 
                   <v-list-item
-                    v-for="(subcategory, subcategoryIndex) in category.subcategorys"
+                    v-for="(subcategory,
+                    subcategoryIndex) in category.subcategorys"
                     :key="subcategory.name"
                     v-model="subcategory.active"
                     @click="selectSubcategory(subcategoryIndex, index)"
                   >
                     <v-list-item-content>
-                      <v-list-item-title active-class="pink--text" v-text="subcategory.name"></v-list-item-title>
+                      <v-list-item-title
+                        active-class="pink--text"
+                        v-text="subcategory.name"
+                      ></v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-group>
@@ -60,10 +66,16 @@
             <v-list shaped>
               <v-list-item-group multiple>
                 <template v-for="(item, i) in attributes">
-                  <v-list-item :key="i" :value="item.id" active-class="primary--text">
+                  <v-list-item
+                    :key="i"
+                    :value="item.id"
+                    active-class="primary--text"
+                  >
                     <template v-slot:default="{ active, toggle }">
                       <v-list-item-content>
-                        <v-list-item-title v-text="item.name"></v-list-item-title>
+                        <v-list-item-title
+                          v-text="item.name"
+                        ></v-list-item-title>
                       </v-list-item-content>
 
                       <v-list-item-action>
@@ -84,6 +96,19 @@
       </v-col>
       <v-col :cols="12" :md="9" :lg="10">
         <v-container class="pa-0">
+          <v-row>
+            <v-col> </v-col>
+            <v-col :cols="12" :lg="4" :md="4" :sm="12">
+              <v-select
+                :items="orden"
+                label="Ordenar por"
+                item-text="text"
+                item-value="value"
+                outlined
+                style="max-width: 100% !important;"
+              ></v-select>
+            </v-col>
+          </v-row>
           <v-row no-gutters>
             <v-col
               v-for="(product, index) in productSkus"
@@ -97,15 +122,27 @@
               <v-lazy
                 v-model="isActive"
                 :options="{
-                    threshold: 0.5
-                  }"
+                  threshold: 0.5,
+                }"
                 min-height="200"
                 transition="fade-transition"
               >
-                <v-card :loading="false" class="mx-auto mb-12" flat tile outlined>
+                <v-card
+                  :loading="false"
+                  class="mx-auto mb-12"
+                  flat
+                  tile
+                  outlined
+                >
                   <v-container>
                     <v-row justify="start">
-                      <v-col lg="12" md="12" sm="6" xs="6" class="pa-xs-0 pa-sm-0">
+                      <v-col
+                        lg="12"
+                        md="12"
+                        sm="6"
+                        xs="6"
+                        class="pa-xs-0 pa-sm-0"
+                      >
                         <v-hover v-slot:default="{ hover }">
                           <v-img
                             height="250"
@@ -119,7 +156,13 @@
                                 class="d-flex transition-fast-in-fast-out white v-card--reveal display-3"
                                 style="height: 100%;"
                               >
-                                <v-btn class="ma-2" fab x-large color="black" icon>
+                                <v-btn
+                                  class="ma-2"
+                                  fab
+                                  x-large
+                                  color="black"
+                                  icon
+                                >
                                   <font-awesome-icon :icon="['fas', 'eye']" />
                                 </v-btn>
                               </div>
@@ -127,39 +170,77 @@
                           </v-img>
                         </v-hover>
                       </v-col>
-
-                      <v-col lg="12" md="12" sm="6" xs="6" class="pa-xs-0 pa-sm-0">
+                      <v-col
+                        lg="12"
+                        md="12"
+                        sm="6"
+                        xs="6"
+                        class="pa-xs-0 pa-sm-0"
+                      >
+                        <v-row align="center" class="d-flex justify-center">
+                          <v-avatar
+                            color="secondary"
+                            class="mr-1"
+                            left
+                            size="24"
+                          >
+                            <span class="white--text" style="font-size: 10px;"
+                              >V</span
+                            >
+                          </v-avatar>
+                          <v-avatar
+                            color="deep-purple lighten-1"
+                            class="mx-1"
+                            left
+                            size="24"
+                          >
+                            <span class="white--text" style="font-size: 10px;"
+                              >GF</span
+                            >
+                          </v-avatar>
+                          <v-avatar
+                            color="deep-orange darken-1"
+                            class="mx-1"
+                            left
+                            size="24"
+                          >
+                            <span class="white--text" style="font-size: 10px;"
+                              >O</span
+                            >
+                          </v-avatar>
+                        </v-row>
                         <v-card-title class="mb-0 pb-0">
-                          {{ product.name }}
+                          <p class="font-weight-medium">{{ product.name }}</p>
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                               <v-btn
                                 text
                                 icon
-                                :color="product.isFavorite ? 'red lighten-1' : 'grey lighten-1'"
-                                @click="product.isFavorite = !product.isFavorite"
+                                :color="
+                                  product.isFavorite
+                                    ? 'red lighten-1'
+                                    : 'grey lighten-1'
+                                "
+                                @click="
+                                  product.isFavorite = !product.isFavorite
+                                "
                               >
                                 <v-icon v-on="on">mdi-heart</v-icon>
                               </v-btn>
                             </template>
-                            <span v-show="!product.isFavorite">Agregar a favoritos</span>
-                            <span v-show="product.isFavorite">Remover de favoritos</span>
+                            <span v-show="!product.isFavorite"
+                              >Agregar a favoritos</span
+                            >
+                            <span v-show="product.isFavorite"
+                              >Remover de favoritos</span
+                            >
                           </v-tooltip>
                         </v-card-title>
 
                         <v-card-text class="py-0 my-0">
-                          <v-row align="center" class="mx-0">
-                            <v-avatar color="secondary" class="mr-1" left size="24">
-                              <span class="white--text" style="font-size: 10px;">V</span>
-                            </v-avatar>
-                            <v-avatar color="deep-purple lighten-1" class="mx-1" left size="24">
-                              <span class="white--text" style="font-size: 10px;">GF</span>
-                            </v-avatar>
-                            <v-avatar color="deep-orange darken-1" class="mx-1" left size="24">
-                              <span class="white--text" style="font-size: 10px;">O</span>
-                            </v-avatar>
-                          </v-row>
-                          <div class="my-4 subtitle-1 black--text">S/ {{ product.price }}</div>
+                          <div class="my-4 subtitle-1 black--text">
+                            S/ {{ product.price }}
+                          </div>
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
@@ -171,13 +252,19 @@
                             outlined
                           >
                             <v-icon>mdi-cart</v-icon>
-                            <span style="font-size: 11px;">Añadir al carrito</span>
+                            <span style="font-size: 11px;"
+                              >Añadir al carrito</span
+                            >
                             <template v-slot:loader>
                               <span
                                 style="font-size: 11px;"
                                 v-show="!product.isAddedToCart"
-                              >Añadiendo...</span>
-                              <span class="custom-loader" v-show="product.isAddedToCart">
+                                >Añadiendo...</span
+                              >
+                              <span
+                                class="custom-loader"
+                                v-show="product.isAddedToCart"
+                              >
                                 <v-icon light>mdi-check</v-icon>
                               </span>
                             </template>
